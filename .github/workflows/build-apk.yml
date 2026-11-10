@@ -127,6 +127,21 @@ jobs:
           path: dist/arm64/*.apk
           retention-days: 30
           if-no-files-found: error
+          
+      - name: Collect merged Android manifests
+        if: always()
+        run: |
+          mkdir -p manifest-debug
+          find fermata/build/intermediates -type f -name "AndroidManifest.xml" -print -exec cp --parents {} manifest-debug/ \;
+
+      - name: Upload manifest diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fermata-manifest-debug
+          path: manifest-debug/
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Upload arm APK
         uses: actions/upload-artifact@v4
