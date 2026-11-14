@@ -28,7 +28,7 @@
     </queries>
 
 
-    <application android:icon="@drawable/launcher">
+    <application>
         <meta-data
             android:name="xposedmodule"
             android:value="true" />
